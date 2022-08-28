@@ -21,7 +21,7 @@ namespace Registeration.Utilities
 
         }
 
-        public async Task SendEmailAsync(string email, string subject, string body ,IFormFile file)
+        public async Task SendEmailAsync(string email, string subject, string body, IFormFile file)
         {
             string content;
             using (var ms = new MemoryStream())
@@ -31,7 +31,7 @@ namespace Registeration.Utilities
                 content = Convert.ToBase64String(fileBytes);
             }
 
-            MailjetClient client = new MailjetClient(_configuration["MailJet:ApiKey"], "MailJet:SecretKey");
+            MailjetClient client = new MailjetClient(_configuration["MailJet:ApiKey"], _configuration["MailJet:SecretKey"]);
             MailjetRequest request = new MailjetRequest
             {
                 Resource = Send.Resource,
@@ -55,6 +55,7 @@ namespace Registeration.Utilities
                     }
                 });
             var ret = await client.PostAsync(request);
+
         }
 
 
